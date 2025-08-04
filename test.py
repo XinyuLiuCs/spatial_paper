@@ -15,25 +15,25 @@ from utils import AverageMeter, write_img, chw_to_hwc, deltaEab, deltaE00
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--exp_name', type=str, default='multi_fin2_style_1')
+parser.add_argument('--exp_name', type=str, default='paper')
 parser.add_argument('--cnum', default=5, type=int, help='curve number')
 parser.add_argument('--cnode', default=64, type=int, help='curve node')
 parser.add_argument('--num_workers', default=4, type=int, help='number of workers')
-parser.add_argument('--model_dir', default='./model/{exp_name}/', type=str)
-parser.add_argument('--data_dir', default='./data/', type=str, help='path to data')
+parser.add_argument('--model_dir', default='/datasets/model/{exp_name}/', type=str)
+parser.add_argument('--data_dir', default='/datasets/data/', type=str, help='path to data')
 parser.add_argument('--image_dir', default='./result/{exp_name}/', type=str, help='path to save results')
 parser.add_argument('--is_save_result', default=False, help='save the enhanced results')
 parser.add_argument('--is_test_deltaE', default=False, help='test deltaE')
 # clip
 parser.add_argument('--clip_model', default='ViT-L-14-336px', type=str, help='CLIP model to use')
-parser.add_argument('--clip_model_path', default='/share/datasets/clip_model/', type=str)
+parser.add_argument('--clip_model_path', default='/datasets/clip_model/', type=str)
 parser.add_argument('--use_text_features', action='store_true', default=True, help='Use text features from CLIP')
 parser.add_argument('--use_image_features', action='store_true', default=True, help='Use image features from CLIP')
 parser.add_argument('--fusion_method', type=str, default='multiply', choices=['concat', 'add', 'multiply', 'attention'], help='Method to fuse image and text features')
 # style
 parser.add_argument('--csv_path', type=str, default='./style data', help='path to csv file')
 parser.add_argument('--input_styles', type=list, default=['06-Input-ExpertC1.5'], help='input styles')
-parser.add_argument('--gt_styles', type=list, default=['05-Experts-E'], help='gt styles')
+parser.add_argument('--gt_styles', type=list, default=['03-Experts-C'], help='gt styles')
 args = parser.parse_args()
 
 args.model_dir = args.model_dir.format(exp_name=args.exp_name)
@@ -144,7 +144,3 @@ if __name__ == '__main__':
 	network_save_path = os.path.join(args.model_dir, f"enhancer_psnr_avg.pth")
 	network.load_state_dict(torch.load(os.path.join(network_save_path))['state_dict'])
 	test(test_loader, network, metric='PSNR')
-
-	network_save_path = os.path.join(args.model_dir, f"enhancer_ssim_avg.pth")
-	network.load_state_dict(torch.load(os.path.join(network_save_path))['state_dict'])
-	test(test_loader, network, metric='SSIM')

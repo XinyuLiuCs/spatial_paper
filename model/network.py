@@ -5,7 +5,6 @@ import numpy as np
 
 from .clip import clip
 from .clip.model import VisionTransformer, ModifiedResNet
-from .basis import EnhancedCrossAttention
 from .restormer import Restormer
 
 class SlimEnhancer(nn.Module):
@@ -43,10 +42,6 @@ class SlimEnhancer(nn.Module):
                 self.combined_dim = self.clip_output_dim + self.text_output_dim
             elif self.fusion_method in ['add', 'multiply']:
                 self.combined_dim = self.clip_output_dim
-            elif self.fusion_method == 'attention':
-                print(f'enhanced_attention is used')
-                self.combined_dim = self.clip_output_dim
-                self.enhanced_cross_attention = EnhancedCrossAttention(self.clip_output_dim, self.text_output_dim)
             elif self.fusion_method == 'cross_attention':
                 print(f'cross_attention is used')
                 self.combined_dim = self.clip_output_dim

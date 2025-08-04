@@ -146,10 +146,6 @@ def load(name: str, device: Union[str, torch.device] = "cuda" if torch.cuda.is_a
     device_node = [n for n in device_holder.graph.findAllNodes("prim::Constant") if "Device" in repr(n)][-1]
 
     def _node_get(node: torch._C.Node, key: str):
-        """Gets attributes of a node which is polymorphic over return type.
-        
-        From https://github.com/pytorch/pytorch/pull/82628
-        """
         sel = node.kindOf(key)
         return getattr(node, sel)(key)
 
