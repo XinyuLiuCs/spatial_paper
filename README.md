@@ -30,6 +30,8 @@ Our pretrained models are available here: [Google Drive](https://drive.userconte
 
 The CLIP pretrained models can be found here: [CLIP](https://github.com/openai/CLIP/tree/main)
 
+The image attribute evaluation program we used can be obtained from: [ACfeatures](http://www.cristinasegalin.com/research/projects/phd/personality/ACfeatures.zip). After normalization, you can obtain style vectors that are consistent with those in our `style data` directory.
+
 The final file path should match the following structure: 
 
 ```
@@ -57,3 +59,8 @@ Just run:
 python test.py
 ```
 
+You can verify whether the program runs correctly and obtain retouched results similar to those shown in the paper by executing the following command:
+
+```sh
+python test.py --data_dir demo
+```
