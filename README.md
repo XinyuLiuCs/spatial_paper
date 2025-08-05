@@ -64,3 +64,5 @@ You can verify whether the program runs correctly and obtain retouched results s
 ```sh
 python test.py --data_dir demo
 ```
+
+You can control `gt_styles ` to achieve the corresponding styles. For example, the parameter `01-Experts-A ` corresponds to the style of Expert A, and `03-Experts-C` corresponds to the style of Expert C.
